@@ -90,4 +90,11 @@ if not df.empty:
 
 else:
     st.info("No expenses added yet. Use the sidebar to add your first expense!")
-
+def load_data():
+    if os.path.exists(FILE_NAME):
+        df = pd.read_csv(FILE_NAME)
+        # ⬇️ THIS LINE IS REQUIRED TO FIX THE SORTING ERROR
+        df["Date"] = pd.to_datetime(df["Date"]) 
+        return df
+    else:
+        return pd.DataFrame(columns=["Date", "Category", "Amount", "Description"])
